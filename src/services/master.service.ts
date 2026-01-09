@@ -17,7 +17,8 @@ interface vendorDetails {
 export const createEmployeeMaster = async (employeDetails : employeDetails) => {
     try {
         const {EmployeeCode, EmployeeName, Email, CapAmount} = employeDetails;
-        const result = await executeStoredProcedure("Stp_CreateEmployee", [
+        const result = await executeStoredProcedure("Stp_Employee", [
+            {name : "flag", value : "createEmployee"},
             { name: "employee_code", value: EmployeeCode },
             { name: "employee_name", value: EmployeeName },
             { name: "email", value: Email },
@@ -34,7 +35,9 @@ export const createEmployeeMaster = async (employeDetails : employeDetails) => {
 
 export const getEmployeeData = async () => {
     try {
-        const employees = await executeStoredProcedure("Stp_GetAllEmployees");
+        const employees = await executeStoredProcedure("Stp_Employee",[
+             {name : "flag", value : "getAllEmployee"}
+        ]);
         return employees;
     } catch (error) {
         console.error("Error fetching employees:", error);
@@ -46,11 +49,12 @@ export const getEmployeeData = async () => {
 export const createVendorMaster = async (vendorDetails : vendorDetails) => {
     try {
         const {VendorCode, VendorName, Email, Mobile} = vendorDetails;
-        const result = await executeStoredProcedure("Stp_CreateVendor", [
+        const result = await executeStoredProcedure("Stp_Vendor", [
             { name: "vendor_code", value: VendorCode },
             { name: "vendor_name", value: VendorName },
             { name: "email", value: Email },
             { name: "mobileNumber", value: Mobile },
+            { name: "flag", value: "createVendor" }
         ]);
         return result;
         
@@ -63,7 +67,9 @@ export const createVendorMaster = async (vendorDetails : vendorDetails) => {
 
 export const getVendorData = async () => {
     try {
-        const vendors = await executeStoredProcedure("Stp_GetAllVendors");
+        const vendors = await executeStoredProcedure("Stp_Vendor",[
+            { name: "flag", value: "getAllVendor" }
+        ]);
         return vendors;
     } catch (error) {
         console.error("Error fetching vendors:", error);

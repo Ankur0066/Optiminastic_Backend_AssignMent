@@ -3,6 +3,7 @@ import {
   createEmployee,
   getEmployees,
   createVendor,
+  getVendors,
 } from "../controllers/master.controller";
 
 const router = Router();
@@ -95,5 +96,7 @@ router.get("/getEmployees", getEmployees);
  *         description: Invalid input
  */
 router.post("/createVendor", createVendor);
+
+router.post("/getAllVendors",getVendors )
 
 export default router;

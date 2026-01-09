@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createEmployeeMaster, createVendorMaster, getEmployeeData } from "../services/master.service";
+import { createEmployeeMaster, createVendorMaster, getEmployeeData, getVendorData } from "../services/master.service";
 
 export async function createEmployee(
   req: Request,
@@ -28,7 +28,7 @@ export async function getEmployees(
 ): Promise<void> {
     try {
         const employees = await getEmployeeData();
-        res.status(200).json(employees);
+        res.status(200).json({message: "Employee fetched", data: employees});
     } catch (error) {
         console.error("Error fetching employees:", error);
         res.status(500).json({ message: "Failed to fetch employees" });
@@ -66,7 +66,13 @@ export async function getVendors(
   req: Request,
   res: Response
 ): Promise<void> {
-  // Implementation for getting vendors
+ try {
+        const vendor = await getVendorData();
+        res.status(200).json(vendor);
+    } catch (error) {
+        console.error("Error fetching vendor:", error);
+        res.status(500).json({ message: "Failed to fetch vendor" });
+    }
 }
 
 
