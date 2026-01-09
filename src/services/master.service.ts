@@ -12,6 +12,13 @@ interface vendorDetails {
     Email: string;
     Mobile: number;
 }
+interface masterType{
+    masterTypeId:number
+}
+interface itemsDetails{
+    itemName:string,
+    category:number
+}
 
 //employeeMaseter
 export const createEmployeeMaster = async (employeDetails : employeDetails) => {
@@ -77,15 +84,49 @@ export const getVendorData = async () => {
     }
 };
 
-
+//------------------------------------------ITEM MASTER-----------------------------------
 export const getItemData = async () => {
     try {
         const items = await executeStoredProcedure("Stp_ItemMaster",[
             {name : "flag",value:"GetAllItems"}
-        ]);        
+        ]);     
         return items;
     } catch (error) {
         console.error("Error fetching items:", error);
+        throw error;
+    }
+};
+export const createItem = async (itemsDetails : itemsDetails) => {
+    try {
+        const {itemName, category} = itemsDetails;
+        const result = await executeStoredProcedure("Stp_ItemMaster", [
+            { name: "itemName", value: itemName },
+            { name: "category", value: category },
+            { name: "flag", value: "CreateItem" }
+        ]);
+        return result;
+        
+    }
+    catch (error) {
+        console.error("Error creating item master:", error);
+        throw error;
+    }
+}
+
+//---------------------------------------Category--------------------------------
+
+export const genericMasterDropdown = async (masterType : masterType) => {
+    try {
+        const {masterTypeId} = masterType; 
+        const category = await executeStoredProcedure("Stp_ItemMaster",[
+            {name : "flag",value:"GetCategory"},
+            {name : "masterTypeId",value : masterTypeId}
+        ]);
+        console.log(category);
+        
+        return category;
+    } catch (error) {
+        console.error("Error fetching category:", error);
         throw error;
     }
 };
