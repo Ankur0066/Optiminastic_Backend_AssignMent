@@ -3,6 +3,7 @@ import {
   createEmployee,
   getEmployees,
   createVendor,
+  getAllItems,
 } from "../controllers/master.controller";
 
 const router = Router();
@@ -41,6 +42,9 @@ const router = Router();
  *               phone:
  *                 type: string
  *                 example: "9876543210"
+ *               cap_amount:
+ *                  type: float
+ *                  example: 100
  *     responses:
  *       201:
  *         description: Employee created successfully
@@ -95,5 +99,21 @@ router.get("/getEmployees", getEmployees);
  *         description: Invalid input
  */
 router.post("/createVendor", createVendor);
+
+
+//---------------------------------------------ITEM API--------------------
+
+/**
+ * @swagger
+ * /master/getAllItems:
+ *   get:
+ *     summary: Get all Items
+ *     tags: [Master]
+ *     responses:
+ *       200:
+ *         description: Items list fetched successfully
+ */
+router.get("/getAllItems", getAllItems);
+
 
 export default router;

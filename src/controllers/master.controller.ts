@@ -1,18 +1,18 @@
 import { Request, Response } from "express";
-import { createEmployeeMaster, createVendorMaster, getEmployeeData } from "../services/master.service";
+import { createEmployeeMaster, createVendorMaster, getEmployeeData, getItemData } from "../services/master.service";
 
 export async function createEmployee(
   req: Request,
   res: Response
 ): Promise<void> {
   try {
-   const {EmployeeCode, EmployeeName, Email, CapAmount} = req.body;
+    const { EmployeeCode, EmployeeName, Email, CapAmount } = req.body;
     // validate input
-    if(!EmployeeCode || !EmployeeName || !Email || CapAmount === undefined){
-        res.status(400).json({ message: "All fields are required" });
-        return;
+    if (!EmployeeCode || !EmployeeName || !Email || CapAmount === undefined) {
+      res.status(400).json({ message: "All fields are required" });
+      return;
     }
-   const result = await createEmployeeMaster(req.body);
+    const result = await createEmployeeMaster(req.body);
 
     res.status(201).json({ message: "Employee created successfully", result });
 
@@ -26,13 +26,13 @@ export async function getEmployees(
   req: Request,
   res: Response
 ): Promise<void> {
-    try {
-        const employees = await getEmployeeData();
-        res.status(200).json(employees);
-    } catch (error) {
-        console.error("Error fetching employees:", error);
-        res.status(500).json({ message: "Failed to fetch employees" });
-    }
+  try {
+    const employees = await getEmployeeData();
+    res.status(200).json({ message: "Data fetched successfully", data: employees });
+  } catch (error) {
+    console.error("Error fetching employees:", error);
+    res.status(500).json({ message: "Failed to fetch employees" });
+  }
 }
 
 export async function createVendor(
@@ -40,24 +40,24 @@ export async function createVendor(
   res: Response
 ): Promise<void> {
   try {
-    const {VendorCode, VendorName, Email, Mobile} = req.body;
+    const { VendorCode, VendorName, Email, Mobile } = req.body;
     // validate input
-    if(!VendorCode || !VendorName || !Email || Mobile === undefined){
-        res.status(400).json({ message: "All fields are required" });
-        return;
+    if (!VendorCode || !VendorName || !Email || Mobile === undefined) {
+      res.status(400).json({ message: "All fields are required" });
+      return;
     }
     const result = await createVendorMaster(req.body);
-   if (result[0]?.Result === 0) {
-  res.status(400).json({ message: "Vendor already exists" });
-  return;
-}
+    if (result[0]?.Result === 0) {
+      res.status(400).json({ message: "Vendor already exists" });
+      return;
+    }
     res.status(201).json({ message: "Vendor created successfully", result });
 
 
   }
   catch (error) {
-   console.error("Error fetching users:", error);
-    res.status(500).json({ message: "Failed to Create vendor" }); 
+    console.error("Error fetching users:", error);
+    res.status(500).json({ message: "Failed to Create vendor" });
   }
 }
 
@@ -71,3 +71,16 @@ export async function getVendors(
 
 
 
+export async function getAllItems(
+  req: Request,
+  res: Response
+): Promise<void> {
+  try {
+    const items = await getItemData();
+    res.status(200).json({ message: "Data fetched successfully", data: items });
+
+  } catch (error) {
+    console.error("Error fetching items:", error);
+    res.status(500).json({ message: "Failed to fetch items" });
+  }
+}

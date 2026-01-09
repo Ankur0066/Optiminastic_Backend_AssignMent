@@ -72,3 +72,14 @@ export const getVendorData = async () => {
 };
 
 
+export const getItemData = async () => {
+    try {
+        const items = await executeStoredProcedure("Stp_ItemMaster",[
+            {name : "flag",value:"GetAllItems"}
+        ]);        
+        return items;
+    } catch (error) {
+        console.error("Error fetching items:", error);
+        throw error;
+    }
+};
