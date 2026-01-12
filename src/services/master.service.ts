@@ -19,6 +19,11 @@ interface itemsDetails{
     itemName:string,
     category:number
 }
+interface priceDetails {
+        itemId : number ,price : number ,
+        periodFrom : Date, 
+        periodTo : Date
+}
 
 //employeeMaseter
 export const createEmployeeMaster = async (employeDetails : employeDetails) => {
@@ -130,3 +135,43 @@ export const genericMasterDropdown = async (masterType : masterType) => {
         throw error;
     }
 };
+
+
+//price master
+export const getPriceData = async () => {
+    try {
+        const price = await executeStoredProcedure("Stp_PriceMAster",[
+            {name : "flag",value:null},
+            {name : "itemId",value:null},
+            {name : "price",value:null},
+            {name : "periodFrom",value:null},
+            {name : "periodTo",value:null}
+        ]);     
+        return price;
+    } catch (error) {
+        console.error("Error fetching price:", error);
+        throw error;
+    }
+};
+
+
+export const createPrice = async (priceDetails : priceDetails) => {
+    try {
+        const {itemId,price,periodFrom, periodTo} = priceDetails;
+        const result = await executeStoredProcedure("Stp_PriceMAster", [
+            { name: "itemId", value: itemId },
+            { name: "price", value: price },
+            { name: "periodFrom", value: periodFrom },
+            { name: "periodTo", value: periodTo },
+            { name: "flag", value: "CreateItem" }
+        ]);
+        return result;
+        
+    }
+    catch (error) {
+        console.error("Error creating item master:", error);
+        throw error;
+    }
+}
+
+

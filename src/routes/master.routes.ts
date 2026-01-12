@@ -7,6 +7,8 @@ import {
   getAllItems,
   getGenericMaster,
   createItemMaster,
+  getAllPrice,
+  createPriceMaster,
 } from "../controllers/master.controller";
 
 const router = Router();
@@ -185,5 +187,58 @@ router.post("/createItem", createItemMaster);
  *         description: Items list fetched successfully
  */
 router.get("/getAllItems", getAllItems);
+
+/**
+ * @swagger
+ * /master/getAllPrice:
+ *   get:
+ *     summary: Get all Price
+ *     tags: [Master]
+ *     responses:
+ *       200:
+ *         description: Items list fetched successfully
+ */
+router.get("/getAllPrice", getAllPrice);
+
+/**
+ * @swagger
+ * /master/createPriceMaster:
+ *   post:
+ *     summary: Create a new Price
+ *     tags: [Master]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - itemId
+ *               - price
+ *               - periodFrom
+ *               - periodTo
+ *             properties:
+ *                itemId:
+ *                 type: number
+ *                 example: 1
+ *                price:   
+ *                  type: float
+ *                  example: 1.00 
+ *                periodFrom :
+ *                   type : date 
+ *                periodTo :
+ *                    type : date 
+ *  
+ *     responses:
+ *       201:
+ *         description: PRice created successfully
+ *       400:
+ *         description: Invalid input
+ */
+router.get("/createPriceMaster", createPriceMaster);
+
+
+
+
 
 export default router;

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createEmployeeMaster, createItem, createVendorMaster, genericMasterDropdown, getEmployeeData, getItemData, getVendorData } from "../services/master.service";
+import { createEmployeeMaster, createItem, createPrice, createVendorMaster, genericMasterDropdown, getEmployeeData, getItemData, getPriceData, getVendorData } from "../services/master.service";
 
 export async function createEmployee(
   req: Request,
@@ -127,5 +127,39 @@ export async function getGenericMaster(
   catch (error) {
     console.error("Error fetching data:", error);
     res.status(500).json({ message: "Failed to fetch data" });
+  }
+}
+
+
+export async function getAllPrice(
+  req: Request,
+  res: Response
+): Promise<void> {
+  try {
+    const items = await getPriceData();
+    res.status(200).json({ message: "Data fetched successfully", data: items });
+
+  } catch (error) {
+    console.error("Error fetching items:", error);
+    res.status(500).json({ message: "Failed to fetch items" });
+  }
+}
+
+export async function createPriceMaster(
+  req: Request,
+  res: Response
+): Promise<void> {
+  try {
+    const {itemId,price,periodFrom, periodTo } = req.body;
+    if (!itemId || !price || !periodFrom ||periodTo ) {
+      res.status(400).json({ message: "All fields are required" });
+      return;
+    }
+    const result = await createPrice(req.body);
+    res.status(201).json({ message: "Price created successfully", result });
+  }
+  catch (error) {
+    console.error("Error creating Price:", error);
+    res.status(500).json({ message: "Failed to Create Price" });
   }
 }
