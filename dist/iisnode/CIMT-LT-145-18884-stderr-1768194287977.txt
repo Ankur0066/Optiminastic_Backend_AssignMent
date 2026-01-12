@@ -1,0 +1,22 @@
+❌ MSSQL connection failed: TypeError: The "config.server" property is required and must be of type string.
+    at new Connection (D:\CIMT-LT-145\Canteen\CanteenAPI\node_modules\tedious\lib\connection.js:289:13)
+    at D:\CIMT-LT-145\Canteen\CanteenAPI\node_modules\mssql\lib\tedious\connection-pool.js:78:19
+    at new Promise (<anonymous>)
+    at ConnectionPool._poolCreate (D:\CIMT-LT-145\Canteen\CanteenAPI\node_modules\mssql\lib\tedious\connection-pool.js:67:12)
+    at ConnectionPool._connect (D:\CIMT-LT-145\Canteen\CanteenAPI\node_modules\mssql\lib\base\connection-pool.js:445:10)
+    at D:\CIMT-LT-145\Canteen\CanteenAPI\node_modules\mssql\lib\base\connection-pool.js:417:19
+    at new Promise (<anonymous>)
+    at ConnectionPool.connect (D:\CIMT-LT-145\Canteen\CanteenAPI\node_modules\mssql\lib\base\connection-pool.js:416:12)
+    at Object.connect (D:\CIMT-LT-145\Canteen\CanteenAPI\node_modules\mssql\lib\global-connection.js:59:27)
+    at getDbPool (D:\CIMT-LT-145\Canteen\CanteenAPI\dist\config\dbconfig.js:74:14)
+❌ Failed to connect to database  TypeError: The "config.server" property is required and must be of type string.
+    at new Connection (D:\CIMT-LT-145\Canteen\CanteenAPI\node_modules\tedious\lib\connection.js:289:13)
+    at D:\CIMT-LT-145\Canteen\CanteenAPI\node_modules\mssql\lib\tedious\connection-pool.js:78:19
+    at new Promise (<anonymous>)
+    at ConnectionPool._poolCreate (D:\CIMT-LT-145\Canteen\CanteenAPI\node_modules\mssql\lib\tedious\connection-pool.js:67:12)
+    at ConnectionPool._connect (D:\CIMT-LT-145\Canteen\CanteenAPI\node_modules\mssql\lib\base\connection-pool.js:445:10)
+    at D:\CIMT-LT-145\Canteen\CanteenAPI\node_modules\mssql\lib\base\connection-pool.js:417:19
+    at new Promise (<anonymous>)
+    at ConnectionPool.connect (D:\CIMT-LT-145\Canteen\CanteenAPI\node_modules\mssql\lib\base\connection-pool.js:416:12)
+    at Object.connect (D:\CIMT-LT-145\Canteen\CanteenAPI\node_modules\mssql\lib\global-connection.js:59:27)
+    at getDbPool (D:\CIMT-LT-145\Canteen\CanteenAPI\dist\config\dbconfig.js:74:14)
