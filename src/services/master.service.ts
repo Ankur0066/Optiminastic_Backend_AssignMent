@@ -147,7 +147,7 @@ export const getPriceData = async () => {
             {name : "periodFrom",value:null},
             {name : "periodTo",value:null}
         ]);     
-       
+       console.log(price)
         return price;
     } catch (error) {
         console.error("Error fetching price:", error);
