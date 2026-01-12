@@ -141,12 +141,13 @@ export const genericMasterDropdown = async (masterType : masterType) => {
 export const getPriceData = async () => {
     try {
         const price = await executeStoredProcedure("Stp_PriceMAster",[
-            {name : "flag",value:null},
+            {name : "flag",value:"GetAllPrice"},
             {name : "itemId",value:null},
             {name : "price",value:null},
             {name : "periodFrom",value:null},
             {name : "periodTo",value:null}
         ]);     
+       
         return price;
     } catch (error) {
         console.error("Error fetching price:", error);

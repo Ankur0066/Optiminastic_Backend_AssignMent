@@ -235,7 +235,7 @@ router.get("/getAllPrice", getAllPrice);
  *       400:
  *         description: Invalid input
  */
-router.get("/createPriceMaster", createPriceMaster);
+router.post("/createPriceMaster", createPriceMaster);
 
 
 

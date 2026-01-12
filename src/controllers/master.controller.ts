@@ -151,7 +151,7 @@ export async function createPriceMaster(
 ): Promise<void> {
   try {
     const {itemId,price,periodFrom, periodTo } = req.body;
-    if (!itemId || !price || !periodFrom ||periodTo ) {
+    if (!itemId || !price || !periodFrom ||!periodTo ) {
       res.status(400).json({ message: "All fields are required" });
       return;
     }
