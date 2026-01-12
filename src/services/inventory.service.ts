@@ -9,6 +9,18 @@ interface inventoryData {
 }
 
 
+export const GetSpecificData = async (category : number) => {
+    try {
+        const inventory = await executeStoredProcedure("Stp_InventoryMaster", [
+            { name: "flag", value: "GetSpecificData" },
+            { name: "category", value: category }
+        ]);
+        return inventory;
+    } catch (error) {
+        console.error("Error fetching inventory:", error);
+        throw error;
+    }
+};
 export const getInventory = async () => {
     try {
         const inventory = await executeStoredProcedure("Stp_InventoryMaster", [
@@ -40,3 +52,36 @@ export const addInventory = async (inventoryData: inventoryData) => {
         throw error;
     }
 }
+
+
+export const stockInData = async (inventoryId: number, itemId: number, changeQty: number) =>{
+     try {
+       
+        const result = await executeStoredProcedure("Stp_InventoryMaster", [
+            { name: "itemId", value: itemId },
+            { name: "inventoryId", value: inventoryId },
+            { name: "changeQty", value: changeQty },
+            { name: "flag", value: "StockIn" }
+        ]);
+        return result;
+
+    }
+    catch (error) {
+        console.error("Error creating vendor master:", error);
+        throw error;
+    }
+
+}
+
+export const getInvLogs = async (inventoryId: number) => {
+    try {
+        const inventory = await executeStoredProcedure("Stp_InventoryMaster", [
+            { name: "flag", value: "logs" },
+            { name: "inventoryId", value: inventoryId }
+        ]);
+        return inventory;
+    } catch (error) {
+        console.error("Error fetching log:", error);
+        throw error;
+    }
+};

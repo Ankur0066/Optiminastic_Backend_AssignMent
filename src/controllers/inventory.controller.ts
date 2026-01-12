@@ -1,5 +1,36 @@
 import { Request, Response } from "express";
-import { addInventory, getInventory } from "../services/inventory.service";
+import { addInventory, getInventory, getInvLogs, GetSpecificData, stockInData } from "../services/inventory.service";
+
+
+export async function getItemData(
+  req: Request,
+  res: Response
+): Promise<void> {
+
+  const {category} = req.body
+  try {
+    const Inventorys = await GetSpecificData(category);
+    res.status(200).json({ message: "Inventory fetched", data: Inventorys });
+  } catch (error) {
+    console.error("Error fetching Inventorys:", error);
+    res.status(500).json({ message: "Failed to fetch Inventorys" });
+  }
+}
+export async function getInventoryLogs(
+  req: Request,
+  res: Response
+): Promise<void> {
+
+  const {inventoryId} = req.body
+  try {
+    const Inventorys = await getInvLogs(inventoryId);
+    res.status(200).json({ message: "Inventory Logs fetched", data: Inventorys });
+  } catch (error) {
+    console.error("Error fetching Inventorys:", error);
+    res.status(500).json({ message: "Failed to fetch Inventory logs" });
+  }
+}
+
 
 
 export async function getAllInventoryData(
@@ -36,5 +67,28 @@ export async function createInventory(
   catch (error) {
     console.error("Error fetching users:", error);
     res.status(500).json({ message: "Failed to Create Inventory" });
+  }
+}
+
+export async function StockIn(
+  req: Request,
+  res: Response
+): Promise<void> {
+  try {
+    const {inventoryId,itemId,changeQty  } = req.body;
+    // validate input
+    if (!itemId || !itemId || !changeQty ) {
+      res.status(400).json({ message: "All fields are required" });
+      return;
+    }
+    const result = await stockInData(inventoryId, itemId,changeQty);
+    
+    res.status(201).json({ message: "Stockin successfully", result });
+
+
+  }
+  catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).json({ message: "Failed to Stockin Inventory" });
   }
 }
