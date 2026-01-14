@@ -85,3 +85,23 @@ export const getInvLogs = async (inventoryId: number) => {
         throw error;
     }
 };
+
+export const wastage = async (inventoryId: number, itemId: number, changeQty: number, reason : string) =>{
+    try{
+          const result = await executeStoredProcedure("Stp_InventoryMaster", [
+            { name: "itemId", value: itemId },
+            { name: "inventoryId", value: inventoryId },
+            { name: "changeQty", value: changeQty },
+            { name: "reason", value: reason },
+            { name: "flag", value: "Wastage" }
+        ]);
+        return result;
+           
+        } catch (error) {
+            console.log("Error Putting to wastage" ,error);
+        }
+    };
+
+
+            
+

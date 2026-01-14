@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { addInventory, getInventory, getInvLogs, GetSpecificData, stockInData } from "../services/inventory.service";
+import { addInventory, getInventory, getInvLogs, GetSpecificData, stockInData, wastage } from "../services/inventory.service";
 
 
 export async function getItemData(
@@ -90,5 +90,26 @@ export async function StockIn(
   catch (error) {
     console.error("Error fetching users:", error);
     res.status(500).json({ message: "Failed to Stockin Inventory" });
+  }
+}
+
+
+export async function InventoryWastage (req : Request, res :Response) :Promise<void>{
+   try{
+ const {inventoryId,itemId,changeQty, reason  } = req.body;
+
+    if (!itemId || !itemId || !changeQty || !reason ) {
+      res.status(400).json({ message: "All fields are required" });
+      return;
+    }
+    const result = await wastage(inventoryId, itemId,changeQty, reason);
+    
+    res.status(201).json({ message: "Wasted Removed successfully", result });
+
+
+  }
+  catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).json({ message: "Failed to remove Wasted Inventory" });
   }
 }

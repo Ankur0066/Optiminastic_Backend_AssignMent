@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createInventory, getAllInventoryData, getInventoryLogs, getItemData, StockIn } from "../controllers/inventory.controller";
+import { createInventory, getAllInventoryData, getInventoryLogs, getItemData, InventoryWastage, StockIn } from "../controllers/inventory.controller";
 
 const router = Router();
 
@@ -123,5 +123,41 @@ router.post("/createInventory", createInventory);
  *         description: Invalid input
  */
 router.post("/StockIn", StockIn);
+/**
+ * @swagger
+ * /inventory/wastage:
+ *   post:
+ *     summary: Create a new inventory
+ *     tags: [Inventory]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - itemId
+ *               - unitId
+ *               - reorderLvl
+ *               - amount
+ *               - vendorId
+ *             properties:
+ *               itemId:
+ *                 type: integer
+ *               unitId:
+ *                 type: integer
+ *               reorderLvl:
+ *                 type: number
+ *               amount:
+ *                 type: number
+ *               vendorId:
+ *                 type: integer
+ *     responses:
+ *       201:
+ *         description: Inventory created successfully
+ *       400:
+ *         description: Invalid input
+ */
+router.post("/wastage", InventoryWastage);
 
 export default router;
