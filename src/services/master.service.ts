@@ -127,7 +127,7 @@ export const genericMasterDropdown = async (masterType : masterType) => {
             {name : "flag",value:"GetCategory"},
             {name : "masterTypeId",value : masterTypeId}
         ]);
-        console.log(category);
+       /// console.log(category);
         
         return category;
     } catch (error) {
@@ -147,7 +147,7 @@ export const getPriceData = async () => {
             {name : "periodFrom",value:null},
             {name : "periodTo",value:null}
         ]);     
-       console.log(price)
+      // console.log(price)
         return price;
     } catch (error) {
         console.error("Error fetching price:", error);
@@ -174,6 +174,20 @@ export const createPrice = async (priceDetails : priceDetails) => {
         throw error;
     }
 }
+
+export const getCategorySpecificData = async (category: number) => {
+    try {
+        const price = await executeStoredProcedure("Stp_ItemMaster",[
+            {name : "flag",value:"getCategorySpecific"},
+            {name : "category",value:category}
+        ]);     
+      // console.log(price)
+        return price;
+    } catch (error) {
+        console.error("Error fetching price:", error);
+        throw error;
+    }
+};
 
 
 

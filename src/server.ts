@@ -23,7 +23,7 @@ app.use(cors());
 
 /* -------------------- DEBUG LOGGER (TEMPORARY) -------------------- */
 app.use((req, _res, next) => {
-  console.log("📦 Body:", req.body);
+ // console.log("📦 Body:", req.body);
   next();
 });
 

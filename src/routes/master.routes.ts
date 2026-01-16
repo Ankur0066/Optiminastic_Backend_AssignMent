@@ -9,6 +9,7 @@ import {
   createItemMaster,
   getAllPrice,
   createPriceMaster,
+  getCategorySpecific,
 } from "../controllers/master.controller";
 
 const router = Router();
@@ -235,6 +236,9 @@ router.get("/getAllPrice", getAllPrice);
  *         description: Invalid input
  */
 router.post("/createPriceMaster", createPriceMaster);
+
+
+router.post("/getCategorySpecific", getCategorySpecific)
 
 
 

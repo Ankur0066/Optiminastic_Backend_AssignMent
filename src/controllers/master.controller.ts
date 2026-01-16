@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createEmployeeMaster, createItem, createPrice, createVendorMaster, genericMasterDropdown, getEmployeeData, getItemData, getPriceData, getVendorData } from "../services/master.service";
+import { createEmployeeMaster, createItem, createPrice, createVendorMaster, genericMasterDropdown, getCategorySpecificData, getEmployeeData, getItemData, getPriceData, getVendorData } from "../services/master.service";
 
 export async function createEmployee(
   req: Request,
@@ -161,5 +161,20 @@ export async function createPriceMaster(
   catch (error) {
     console.error("Error creating Price:", error);
     res.status(500).json({ message: "Failed to Create Price" });
+  }
+}
+
+export async function getCategorySpecific(
+  req: Request,
+  res: Response
+): Promise<void> {
+  try {
+    const { category } = req.body;
+    const items = await getCategorySpecificData(category);
+    res.status(200).json({ message: "Data fetched successfully", data: items });
+
+  } catch (error) {
+    console.error("Error fetching items:", error);
+    res.status(500).json({ message: "Failed to fetch items" });
   }
 }

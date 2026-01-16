@@ -98,7 +98,7 @@ export const wastage = async (inventoryId: number, itemId: number, changeQty: nu
         return result;
            
         } catch (error) {
-            console.log("Error Putting to wastage" ,error);
+            console.error("Error Putting to wastage" ,error);
         }
     };
 
