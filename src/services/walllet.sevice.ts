@@ -22,6 +22,17 @@ export const GetWalletDashboard = async () => {
         throw error;
     }
 };
+export const getWalletLogs = async () => {
+    try {
+        const wallet = await executeStoredProcedure("Stp_Wallet", [
+            { name: "flag", value: "walletLogs" }
+        ]);
+        return wallet;
+    } catch (error) {
+        console.error("Error fetching wallet logs:", error);
+        throw error;
+    }
+};
 export const RechargeWallet = async (amount: number, walletId: string) => {
     try {
         const wallet = await executeStoredProcedure("Stp_Wallet", [
@@ -32,6 +43,34 @@ export const RechargeWallet = async (amount: number, walletId: string) => {
         return wallet;
     } catch (error) {
         console.error("Error Recharging wallet:", error);
+        throw error;
+    }
+};
+
+export const getUserWallet = async (empId: number) => {
+    try {
+        const wallet = await executeStoredProcedure("Stp_Wallet", [
+            { name: "flag", value: "UserWallet" },
+            { name: "empId", value: empId }
+        ]);
+        return wallet;
+    } catch (error) {
+        console.error("Error fetching user wallet:", error);
+        throw error;
+    }
+};
+
+
+export const getWalletLogsForUser = async (empId: number) => {
+    try {
+        const wallet = await executeStoredProcedure("Stp_Wallet", [
+            { name: "flag", value: "walletLogsForUser" },
+            { name: "empId", value: empId }
+        ]);
+        console.log(wallet);
+        return wallet;
+    } catch (error) {
+        console.error("Error fetching wallet logs:", error);
         throw error;
     }
 };

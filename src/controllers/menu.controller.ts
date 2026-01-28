@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createMenuItem, getMenuData } from "../services/menu.service";
+import { createMenuItem, deleteMenuById, getMenuData } from "../services/menu.service";
 
 export async function getMenu(
   req: Request,
@@ -32,3 +32,23 @@ export async function createMenu(
         res.status(500).json({ message: "Failed to create menu item" });
     }
 }
+
+export async function deleteMenu(
+    req: Request,
+    res: Response
+    ): Promise<void> {
+        try{
+            const {menuId} = req.body
+            const result = await deleteMenuById(menuId);
+            const res1 = result[0].Result;
+            if(res1 === 1){
+              res.status(200).json({ message: "Menu item deleted", data: result }); 
+            }
+        }
+        catch(error){
+            console.error("Error deleting menu item:", error);
+            res.status(500).json({ message: "Failed to delete menu item" });
+        }
+    }
+
+

@@ -5,6 +5,9 @@ interface employeDetails {
     EmployeeName: string;
     Email: string;
     CapAmount: number;
+    mobile : number;
+    userName : string;
+    empId : number;
 }
 interface vendorDetails {
     VendorCode: string;
@@ -28,12 +31,14 @@ interface priceDetails {
 //employeeMaseter
 export const createEmployeeMaster = async (employeDetails : employeDetails) => {
     try {
-        const {EmployeeCode, EmployeeName, Email, CapAmount} = employeDetails;
+        const {EmployeeCode, EmployeeName, Email, CapAmount, mobile, userName} = employeDetails;
         const result = await executeStoredProcedure("Stp_Employee", [
             {name : "flag", value : "createEmployee"},
             { name: "employee_code", value: EmployeeCode },
             { name: "employee_name", value: EmployeeName },
             { name: "email", value: Email },
+            { name: "mobile", value: mobile },
+            { name: "userName", value: userName },
             { name: "cap_amount", value: CapAmount },
         ]);
         return result;
@@ -47,6 +52,7 @@ export const createEmployeeMaster = async (employeDetails : employeDetails) => {
 
 export const getEmployeeData = async () => {
     try {
+        
         const employees = await executeStoredProcedure("Stp_Employee",[
              {name : "flag", value : "getAllEmployee"}
         ]);
@@ -56,6 +62,27 @@ export const getEmployeeData = async () => {
         throw error;
     }
 };
+
+export const updateEmployee = async (employeDetails : employeDetails)=>{
+    try{
+        const {empId, Email, CapAmount, mobile, userName} = employeDetails;
+        const employee  = await executeStoredProcedure("Stp_Employee",[
+            {name : "flag", value : "updateEmployee"},
+            { name: "email", value: Email },
+            { name: "mobile", value: mobile },
+            { name: "userName", value: userName },
+            { name: "cap_amount", value: CapAmount },
+            { name: "empId", value: empId },
+           
+        ])
+         return employee;
+
+    }
+    catch(error){
+       console.error("Error fetching employees:", error);
+        throw error;
+    }
+}
 
 //vendor master
 export const createVendorMaster = async (vendorDetails : vendorDetails) => {

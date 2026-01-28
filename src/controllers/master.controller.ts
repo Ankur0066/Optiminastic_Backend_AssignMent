@@ -1,17 +1,25 @@
 import { Request, Response } from "express";
-import { createEmployeeMaster, createItem, createPrice, createVendorMaster, genericMasterDropdown, getCategorySpecificData, getEmployeeData, getItemData, getPriceData, getVendorData } from "../services/master.service";
+import { createEmployeeMaster, createItem, createPrice, createVendorMaster, genericMasterDropdown, getCategorySpecificData, getEmployeeData, getItemData, getPriceData, getVendorData, updateEmployee } from "../services/master.service";
 
 export async function createEmployee(
   req: Request,
   res: Response
 ): Promise<void> {
   try {
-    const { EmployeeCode, EmployeeName, Email, CapAmount } = req.body;
+    const { EmployeeCode, EmployeeName, Email, CapAmount, mobile, userName } = req.body;
     // validate input
-    if (!EmployeeCode || !EmployeeName || !Email || CapAmount === undefined) {
-      res.status(400).json({ message: "All fields are required" });
-      return;
-    }
+   if (
+  !EmployeeCode ||
+  !EmployeeName ||
+  !Email ||
+  CapAmount === undefined ||
+  !mobile ||
+  userName === undefined
+) {
+  res.status(400).json({ message: "All fields are required" });
+  return;
+}
+
     const result = await createEmployeeMaster(req.body);
 
     res.status(201).json({ message: "Employee created successfully", result });
@@ -59,6 +67,32 @@ export async function createVendor(
     console.error("Error fetching users:", error);
     res.status(500).json({ message: "Failed to Create vendor" });
   }
+}
+
+export async function updateEmployeeData( req: Request,
+  res: Response) : Promise<void>{
+  try {
+    const { empId,  Email, CapAmount, mobile, userName } = req.body;
+    // validate input
+   if (
+
+  !Email ||
+  CapAmount === undefined ||
+  !mobile ||
+  userName === undefined
+) {
+  res.status(400).json({ message: "All fields are required" });
+  return;
+}
+    const result = await updateEmployee(req.body);
+
+    res.status(200).json({ message: "Employee Updated successfully", result });
+
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).json({ message: "Failed to Upddate user" });
+  }
+  
 }
 
 

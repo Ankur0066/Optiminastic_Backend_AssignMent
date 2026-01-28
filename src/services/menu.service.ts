@@ -26,7 +26,7 @@ export const getMenuData = async () => {
             };
         });
 
-        console.log("Formatted Menu:", formattedMenu);
+        
         return formattedMenu;
     } catch (error) {
         console.error("Error fetching menu data:", error);
@@ -57,3 +57,17 @@ catch(error){
     throw error;
 }
 }
+
+export const deleteMenuById = async (menuId: number) => {
+    try {
+        const result = await executeStoredProcedure("Stp_Menu", [
+            { name: "menuId", value: menuId },
+            { name: "flag", value: "deleteMenu" }
+        ]);
+        console.log("Delete Result:", result);
+        return result;
+    } catch (error) {
+        console.error("Error deleting menu item:", error);
+        throw error;
+    }
+};
