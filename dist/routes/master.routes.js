@@ -213,4 +213,5 @@ router.get("/getAllPrice", master_controller_1.getAllPrice);
  */
 router.post("/createPriceMaster", master_controller_1.createPriceMaster);
 router.post("/getCategorySpecific", master_controller_1.getCategorySpecific);
+router.post("/updateEmployee", master_controller_1.updateEmployeeData);
 exports.default = router;

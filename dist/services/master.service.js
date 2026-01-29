@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCategorySpecificData = exports.createPrice = exports.getPriceData = exports.genericMasterDropdown = exports.createItem = exports.getItemData = exports.getVendorData = exports.createVendorMaster = exports.getEmployeeData = exports.createEmployeeMaster = void 0;
+exports.getCategorySpecificData = exports.createPrice = exports.getPriceData = exports.genericMasterDropdown = exports.createItem = exports.getItemData = exports.getVendorData = exports.createVendorMaster = exports.updateEmployee = exports.getEmployeeData = exports.createEmployeeMaster = void 0;
 const dbconfig_1 = require("../config/dbconfig");
 //employeeMaseter
 const createEmployeeMaster = async (employeDetails) => {
@@ -36,6 +36,25 @@ const getEmployeeData = async () => {
     }
 };
 exports.getEmployeeData = getEmployeeData;
+const updateEmployee = async (employeDetails) => {
+    try {
+        const { empId, Email, CapAmount, mobile, userName } = employeDetails;
+        const employee = await (0, dbconfig_1.executeStoredProcedure)("Stp_Employee", [
+            { name: "flag", value: "updateEmployee" },
+            { name: "email", value: Email },
+            { name: "mobile", value: mobile },
+            { name: "userName", value: userName },
+            { name: "cap_amount", value: CapAmount },
+            { name: "empId", value: empId },
+        ]);
+        return employee;
+    }
+    catch (error) {
+        console.error("Error fetching employees:", error);
+        throw error;
+    }
+};
+exports.updateEmployee = updateEmployee;
 //vendor master
 const createVendorMaster = async (vendorDetails) => {
     try {

@@ -74,3 +74,17 @@ export const getWalletLogsForUser = async (empId: number) => {
         throw error;
     }
 };
+export const updateCAP = async (empId: number, remCap : number ) => {
+    try {
+        const wallet = await executeStoredProcedure("Stp_Wallet", [
+            { name: "flag", value: "updateCap" },
+            { name: "empId", value: empId },
+            { name: "remCap", value: remCap },
+        ]);
+        console.log(wallet);
+        return wallet;
+    } catch (error) {
+        console.error("Error fetching wallet logs:", error);
+        throw error;
+    }
+};

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getUserWalletData, getWalletDashboardData, getWalletData, getWalletLogsData, getWalletLogsDataForUser, rechargeWallet } from "../controllers/wallet.controller";
+import { getUserWalletData, getWalletDashboardData, getWalletData, getWalletLogsData, getWalletLogsDataForUser, rechargeWallet, updateCapData } from "../controllers/wallet.controller";
 
 const router = Router();
 
@@ -9,6 +9,7 @@ router.post("/rechargeWallet",rechargeWallet);
 router.get("/getWalletLogs",getWalletLogsData);
 router.post("/getUserWallet",getUserWalletData);
 router.post("/getWalletLogsForUser",getWalletLogsDataForUser);
+router.post("/updateCAP",updateCapData);
 
 
 

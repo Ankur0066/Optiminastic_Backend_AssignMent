@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getWalletLogsForUser = exports.getUserWallet = exports.RechargeWallet = exports.getWalletLogs = exports.GetWalletDashboard = exports.getWallet = void 0;
+exports.updateCAP = exports.getWalletLogsForUser = exports.getUserWallet = exports.RechargeWallet = exports.getWalletLogs = exports.GetWalletDashboard = exports.getWallet = void 0;
 const dbconfig_1 = require("../config/dbconfig");
 const getWallet = async () => {
     try {
@@ -85,3 +85,19 @@ const getWalletLogsForUser = async (empId) => {
     }
 };
 exports.getWalletLogsForUser = getWalletLogsForUser;
+const updateCAP = async (empId, remCap) => {
+    try {
+        const wallet = await (0, dbconfig_1.executeStoredProcedure)("Stp_Wallet", [
+            { name: "flag", value: "updateCap" },
+            { name: "empId", value: empId },
+            { name: "remCap", value: remCap },
+        ]);
+        console.log(wallet);
+        return wallet;
+    }
+    catch (error) {
+        console.error("Error fetching wallet logs:", error);
+        throw error;
+    }
+};
+exports.updateCAP = updateCAP;

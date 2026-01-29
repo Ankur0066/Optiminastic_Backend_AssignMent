@@ -28,8 +28,9 @@ async function getSepcificOrderData(req, res) {
 }
 async function placeOrderData(req, res) {
     try {
-        const { cart, orderRefId, empId, orderAmnt, walletId } = req.body;
-        const orderInfo = { orderRefId, empId, orderAmnt, walletId };
+        const { cart, orderRefId, empId, orderAmnt, walletId, capDeduction, walletDeduction } = req.body;
+        const orderInfo = { orderRefId, empId, orderAmnt, walletId, capDeduction, walletDeduction };
+        console.log;
         const order = await (0, order_service_1.PlaceOrder)(cart, orderInfo);
         res.status(200).json({ message: "Order placed successfully", data: order });
     }

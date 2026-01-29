@@ -47,10 +47,10 @@ dotenv_1.default.config();
    MSSQL CONFIG
 ===================================================== */
 const sqlConfig = {
-    user: process.env.DB_USER,
-    password: process.env.DB_PWD,
-    database: process.env.DB_NAME,
-    server: process.env.DB_HOST,
+    user: "sa",
+    password: "Cimt@123",
+    database: "CanteenModule",
+    server: "172.16.90.30",
     pool: {
         max: 10,
         min: 0,

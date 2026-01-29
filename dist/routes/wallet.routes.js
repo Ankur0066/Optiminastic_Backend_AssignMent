@@ -9,4 +9,5 @@ router.post("/rechargeWallet", wallet_controller_1.rechargeWallet);
 router.get("/getWalletLogs", wallet_controller_1.getWalletLogsData);
 router.post("/getUserWallet", wallet_controller_1.getUserWalletData);
 router.post("/getWalletLogsForUser", wallet_controller_1.getWalletLogsDataForUser);
+router.post("/updateCAP", wallet_controller_1.updateCapData);
 exports.default = router;

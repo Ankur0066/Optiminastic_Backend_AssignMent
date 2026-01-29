@@ -47,13 +47,15 @@ const getOrders = async (empId) => {
 exports.getOrders = getOrders;
 const PlaceOrder = async (cart, orderInfo) => {
     try {
-        const { orderRefId, empId, orderAmnt, walletId } = orderInfo;
+        const { orderRefId, empId, orderAmnt, walletId, capDeduction, walletDeduction } = orderInfo;
         const order = await (0, dbconfig_1.executeStoredProcedure)("Stp_Order", [
             { name: "flag", value: "PlaceOrder" },
             { name: "orderRefId", value: orderRefId },
             { name: "empId", value: empId },
             { name: "orderAmnt", value: orderAmnt },
             { name: "walletId", value: walletId },
+            { name: "capDeduction", value: capDeduction },
+            { name: "walletDeduction", value: walletDeduction },
             { name: "cart", value: JSON.stringify(cart) }
         ]);
         return order;
