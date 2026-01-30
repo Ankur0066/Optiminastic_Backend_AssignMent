@@ -1,10 +1,10 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-
 import { getDbPool } from "./config/dbconfig";
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./config/swagger";
 import globalRoute from "./globalRoute";
-
 dotenv.config();
 
 const app = express();
@@ -23,7 +23,7 @@ app.use(cors());
 
 /* -------------------- DEBUG LOGGER (TEMPORARY) -------------------- */
 app.use((req, _res, next) => {
-  console.log("📦 Body:", req.body);
+ // console.log("📦 Body:", req.body);
   next();
 });
 
@@ -34,9 +34,11 @@ app.get("/health", (_req: Request, res: Response) => {
   res.send("Server is running 🚀");
 });
 
-//  global route calling
+//  routes
+app.use("/api", globalRoute);
 
-app.use("/api",globalRoute)
+/* ---------- SWAGGER ROUTE ---------- */
+app.use("/apiDocs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /* -------------------- SERVER START -------------------- */
 

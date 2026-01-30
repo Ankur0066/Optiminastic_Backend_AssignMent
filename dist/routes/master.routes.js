@@ -1,20 +1,8 @@
-import { Router } from "express";
-import {
-  createEmployee,
-  getEmployees,
-  createVendor,
-  getVendors,
-  getAllItems,
-  getGenericMaster,
-  createItemMaster,
-  getAllPrice,
-  createPriceMaster,
-  getCategorySpecific,
-  updateEmployeeData,
-} from "../controllers/master.controller";
-
-const router = Router();
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const master_controller_1 = require("../controllers/master.controller");
+const router = (0, express_1.Router)();
 /**
  * @swagger
  * /master/getGenericMaster:
@@ -39,16 +27,13 @@ const router = Router();
  *       400:
  *         description: Invalid input
  */
-router.post("/getGenericMaster",getGenericMaster)
-
+router.post("/getGenericMaster", master_controller_1.getGenericMaster);
 /**
  * @swagger
  * tags:
  *   name: Master
  */
-
 /* ===================== EMPLOYEE APIs ===================== */
-
 /**
  * @swagger
  * /master/createEmployee:
@@ -83,8 +68,7 @@ router.post("/getGenericMaster",getGenericMaster)
  *       400:
  *         description: Invalid input
  */
-router.post("/createEmployee", createEmployee);
-
+router.post("/createEmployee", master_controller_1.createEmployee);
 /**
  * @swagger
  * /master/getEmployees:
@@ -95,10 +79,8 @@ router.post("/createEmployee", createEmployee);
  *       200:
  *         description: Employee list fetched successfully
  */
-router.get("/getEmployees", getEmployees);
-
+router.get("/getEmployees", master_controller_1.getEmployees);
 /* ===================== VENDOR APIs ===================== */
-
 /**
  * @swagger
  * /master/createVendor:
@@ -130,8 +112,7 @@ router.get("/getEmployees", getEmployees);
  *       400:
  *         description: Invalid input
  */
-router.post("/createVendor", createVendor);
-
+router.post("/createVendor", master_controller_1.createVendor);
 /**
  * @swagger
  * /master/getAllVendors:
@@ -142,11 +123,8 @@ router.post("/createVendor", createVendor);
  *       200:
  *         description: vendors list fetched successfully
  */
-router.get("/getAllVendors",getVendors )
-
-
+router.get("/getAllVendors", master_controller_1.getVendors);
 //---------------------------------------------ITEM API--------------------
-
 /**
  * @swagger
  * /master/createItem:
@@ -166,17 +144,16 @@ router.get("/getAllVendors",getVendors )
  *               itemName:
  *                 type: string
  *                 example: Sugar
- *               category:   
+ *               category:
  *                  type: number
- *                  example: 1    
+ *                  example: 1
  *     responses:
  *       201:
  *         description: Item created successfully
  *       400:
  *         description: Invalid input
  */
-router.post("/createItem", createItemMaster);
-
+router.post("/createItem", master_controller_1.createItemMaster);
 /**
  * @swagger
  * /master/getAllItems:
@@ -187,8 +164,7 @@ router.post("/createItem", createItemMaster);
  *       200:
  *         description: Items list fetched successfully
  */
-router.get("/getAllItems", getAllItems);
-
+router.get("/getAllItems", master_controller_1.getAllItems);
 /**
  * @swagger
  * /master/getAllPrice:
@@ -199,8 +175,7 @@ router.get("/getAllItems", getAllItems);
  *       200:
  *         description: Items list fetched successfully
  */
-router.get("/getAllPrice", getAllPrice);
-
+router.get("/getAllPrice", master_controller_1.getAllPrice);
 /**
  * @swagger
  * /master/createPriceMaster:
@@ -222,29 +197,21 @@ router.get("/getAllPrice", getAllPrice);
  *                itemId:
  *                 type: number
  *                 example: 1
- *                price:   
+ *                price:
  *                  type: float
- *                  example: 1.00 
+ *                  example: 1.00
  *                periodFrom :
- *                   type : date 
+ *                   type : date
  *                periodTo :
- *                    type : date 
- *  
+ *                    type : date
+ *
  *     responses:
  *       201:
  *         description: PRice created successfully
  *       400:
  *         description: Invalid input
  */
-router.post("/createPriceMaster", createPriceMaster);
-
-
-router.post("/getCategorySpecific", getCategorySpecific)
-
-router.post("/updateEmployee", updateEmployeeData)
-
-
-
-
-
-export default router;
+router.post("/createPriceMaster", master_controller_1.createPriceMaster);
+router.post("/getCategorySpecific", master_controller_1.getCategorySpecific);
+router.post("/updateEmployee", master_controller_1.updateEmployeeData);
+exports.default = router;

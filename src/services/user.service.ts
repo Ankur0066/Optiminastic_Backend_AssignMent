@@ -33,3 +33,18 @@ export const GetUserDetailsByUserName = async (Username: string) => {
         throw error;
     }
 }
+
+
+export const adminLogin = async (Username: string, Password: string) => {
+    try {
+        const data = await executeStoredProcedure("Stp_AdminLogin", [   
+            { name: "Username", value: Username },
+            { name: "Password", value: Password }
+        ]);
+        return data;
+    } catch (error) {
+        console.error("Error during admin login:", error);
+        throw error;
+    }
+};
+
