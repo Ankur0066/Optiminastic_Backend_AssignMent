@@ -1,4 +1,5 @@
 import { executeStoredProcedure } from "../config/dbconfig";
+import { hashPassword } from "../config/password";
 
 export const getUsers = async () => {
     try {
@@ -26,6 +27,19 @@ export const GetUserDetailsByUserName = async (Username: string) => {
     try {
         const data = await executeStoredProcedure("Stp_UserLogin", [
             { name: "Username", value: Username },
+            { name: "flag", value: "GetDataByUserName" }
+        ]);
+        return data;
+    } catch (error) {
+        console.error("Error fetching user details by UserId:", error);
+        throw error;
+    }
+}
+export const GetUserDetailsByEmpId = async (empId: string) => {
+    try {
+        const data = await executeStoredProcedure("Stp_UserLogin", [
+            { name: "empId", value: empId },
+            { name: "flag", value: "GetDataByUserId" }
         ]);
         return data;
     } catch (error) {
@@ -47,4 +61,17 @@ export const adminLogin = async (Username: string, Password: string) => {
         throw error;
     }
 };
+export const ChangePassword = async(empId: Number, inputpassword : string, NewPass : string)=>{
+    try{
+        const hasPass = await hashPassword(NewPass)
+        const data = await executeStoredProcedure("Stp_ChangePassword", [
+            { name: "empId", value: empId },
+            { name: "NewPass", value: hasPass }
+        ])
+         return data;
+    }catch(error) {
+        console.error("Error during Password change :", error);
+        throw error;
+    }
+}
 

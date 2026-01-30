@@ -6,7 +6,7 @@ export async function createEmployee(
   res: Response
 ): Promise<void> {
   try {
-    const { EmployeeCode, EmployeeName, Email, CapAmount, mobile, userName } = req.body;
+    const { EmployeeCode, EmployeeName, Email, CapAmount, mobile, userName, password } = req.body;
     // validate input
    if (
   !EmployeeCode ||
@@ -14,7 +14,8 @@ export async function createEmployee(
   !Email ||
   CapAmount === undefined ||
   !mobile ||
-  userName === undefined
+  userName === undefined ||
+  password === undefined
 ) {
   res.status(400).json({ message: "All fields are required" });
   return;

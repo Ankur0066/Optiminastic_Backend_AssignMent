@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { adminLogin, GetUserDetailsByUserName, } from "../services/user.service";
+import { verifyPassword } from "../config/password";
 
 
 export async function loginUser(req: Request, res: Response): Promise<void> {
@@ -11,32 +12,32 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
       return;
     }
 
-    // ===== Admin Login =====
-    if (loginType === "admin") {
-      try {
-        const admins = await adminLogin(userName, password); // async function returning array
+    // // ===== Admin Login =====
+    // if (loginType === "admin") {
+    //   try {
+    //     const admins = await adminLogin(userName, password); // async function returning array
 
-        if (!admins || admins.length === 0) {
-          res.status(404).json({ message: "Admin not found" });
-          return; // ✅ return after sending response
-        }
+    //     if (!admins || admins.length === 0) {
+    //       res.status(404).json({ message: "Admin not found" });
+    //       return; // ✅ return after sending response
+    //     }
 
-        const admin = admins[0];
+    //     const admin = admins[0];
 
-        if (admin?.Password !== password) {
-          res.status(401).json({ message: "Invalid password" });
-          return; // ✅ return after sending response
-        }
+    //     if (admin?.Password !== password) {
+    //       res.status(401).json({ message: "Invalid password" });
+    //       return; // ✅ return after sending response
+    //     }
 
-        // login successful
-        res.status(200).json({ message: "Login successful", admin });
-        return; // ✅ return to stop further execution
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Internal server error" });
-        return;
-      }
-    }
+    //     // login successful
+    //     res.status(200).json({ message: "Login successful", admin });
+    //     return; // ✅ return to stop further execution
+    //   } catch (error) {
+    //     console.error(error);
+    //     res.status(500).json({ message: "Internal server error" });
+    //     return;
+    //   }
+    // }
 
     // ===== User Login =====
     const userData = await GetUserDetailsByUserName(userName);
@@ -47,13 +48,15 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
     }
 
     const user = userData[0];
+    const isValid = await verifyPassword( password, user.Password)
 
-    if (user.Password !== password) {
+
+  if (!isValid){
       res.status(401).json({ message: "Invalid password" });
       return;
     }
 
-    res.status(200).json({ message: "Login successful", user });
+    res.status(200).json({ message: "Login successful", user });  
   } catch (error) {
     console.error("Error logging in user:", error);
     res.status(500).json({ message: "Failed to login user" });
