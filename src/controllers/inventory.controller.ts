@@ -52,12 +52,13 @@ export async function createInventory(
   res: Response
 ): Promise<void> {
   try {
-    const {itemId,unitId,reorderLvl,amount,vendorId  } = req.body;
+    const {itemId,unitId,reorderLvl,amount,vendorId , price } = req.body;
     // validate input
-    if (!itemId || !unitId || !reorderLvl || !amount || !vendorId) {
+    if (!itemId || !unitId || !reorderLvl || !amount || !vendorId || !price) {
       res.status(400).json({ message: "All fields are required" });
       return;
     }
+    console.log("gg", req.body)
     const result = await addInventory(req.body);
     
     res.status(201).json({ message: "Inventory created successfully", result });

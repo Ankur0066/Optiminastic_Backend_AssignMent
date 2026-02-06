@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loginUser = loginUser;
 const user_service_1 = require("../services/user.service");
+const password_1 = require("../config/password");
 async function loginUser(req, res) {
     try {
         const { userName, password, loginType } = req.body;
@@ -9,29 +10,28 @@ async function loginUser(req, res) {
             res.status(400).json({ message: "Username and password are required" });
             return;
         }
-        // ===== Admin Login =====
-        if (loginType === "admin") {
-            try {
-                const admins = await (0, user_service_1.adminLogin)(userName, password); // async function returning array
-                if (!admins || admins.length === 0) {
-                    res.status(404).json({ message: "Admin not found" });
-                    return; // ✅ return after sending response
-                }
-                const admin = admins[0];
-                if (admin?.Password !== password) {
-                    res.status(401).json({ message: "Invalid password" });
-                    return; // ✅ return after sending response
-                }
-                // login successful
-                res.status(200).json({ message: "Login successful", admin });
-                return; // ✅ return to stop further execution
-            }
-            catch (error) {
-                console.error(error);
-                res.status(500).json({ message: "Internal server error" });
-                return;
-            }
-        }
+        // // ===== Admin Login =====
+        // if (loginType === "admin") {
+        //   try {
+        //     const admins = await adminLogin(userName, password); // async function returning array
+        //     if (!admins || admins.length === 0) {
+        //       res.status(404).json({ message: "Admin not found" });
+        //       return; // ✅ return after sending response
+        //     }
+        //     const admin = admins[0];
+        //     if (admin?.Password !== password) {
+        //       res.status(401).json({ message: "Invalid password" });
+        //       return; // ✅ return after sending response
+        //     }
+        //     // login successful
+        //     res.status(200).json({ message: "Login successful", admin });
+        //     return; // ✅ return to stop further execution
+        //   } catch (error) {
+        //     console.error(error);
+        //     res.status(500).json({ message: "Internal server error" });
+        //     return;
+        //   }
+        // }
         // ===== User Login =====
         const userData = await (0, user_service_1.GetUserDetailsByUserName)(userName);
         if (!userData || userData.length === 0) {
@@ -39,7 +39,8 @@ async function loginUser(req, res) {
             return;
         }
         const user = userData[0];
-        if (user.Password !== password) {
+        const isValid = await (0, password_1.verifyPassword)(password, user.Password);
+        if (!isValid) {
             res.status(401).json({ message: "Invalid password" });
             return;
         }

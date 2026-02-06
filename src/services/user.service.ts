@@ -75,3 +75,12 @@ export const ChangePassword = async(empId: Number, inputpassword : string, NewPa
     }
 }
 
+export const ForgetPassword = async()=>{
+   try{
+       
+    }catch(error) {
+        console.error("Error during Password Forget :", error);
+        throw error;
+    }
+}
+

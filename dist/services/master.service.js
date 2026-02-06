@@ -2,10 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getCategorySpecificData = exports.createPrice = exports.getPriceData = exports.genericMasterDropdown = exports.createItem = exports.getItemData = exports.getVendorData = exports.createVendorMaster = exports.updateEmployee = exports.getEmployeeData = exports.createEmployeeMaster = void 0;
 const dbconfig_1 = require("../config/dbconfig");
+const password_1 = require("../config/password");
 //employeeMaseter
 const createEmployeeMaster = async (employeDetails) => {
     try {
-        const { EmployeeCode, EmployeeName, Email, CapAmount, mobile, userName } = employeDetails;
+        const { EmployeeCode, EmployeeName, Email, CapAmount, mobile, userName, password } = employeDetails;
+        const hashedPass = await (0, password_1.hashPassword)(password);
         const result = await (0, dbconfig_1.executeStoredProcedure)("Stp_Employee", [
             { name: "flag", value: "createEmployee" },
             { name: "employee_code", value: EmployeeCode },
@@ -14,6 +16,7 @@ const createEmployeeMaster = async (employeDetails) => {
             { name: "mobile", value: mobile },
             { name: "userName", value: userName },
             { name: "cap_amount", value: CapAmount },
+            { name: "password", value: hashedPass },
         ]);
         return result;
     }

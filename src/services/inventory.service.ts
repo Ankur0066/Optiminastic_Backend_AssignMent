@@ -5,7 +5,8 @@ interface inventoryData {
     unitId: Number,
     reorderLvl: Number,
     amount: Number,
-    vendorId: Number
+    vendorId: Number,
+    price : Number
 }
 
 
@@ -35,13 +36,15 @@ export const getInventory = async () => {
 
 export const addInventory = async (inventoryData: inventoryData) => {
     try {
-        const { itemId,unitId,reorderLvl,amount,vendorId } = inventoryData;
+        const { itemId,unitId,reorderLvl,amount,vendorId, price} = inventoryData;
+       
         const result = await executeStoredProcedure("Stp_InventoryMaster", [
             { name: "itemId", value: itemId },
             { name: "unitId", value: unitId },
             { name: "reorderLvl", value: reorderLvl },
             { name: "amount", value: amount },
             { name: "vendorId", value: vendorId },
+            { name: "price", value: price },
             { name: "flag", value: "CreateInventory" }
         ]);
         return result;
