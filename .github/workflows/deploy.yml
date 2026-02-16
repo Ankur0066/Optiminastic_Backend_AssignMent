@@ -36,5 +36,9 @@ jobs:
           xcopy package.json C:\inetpub\wwwroot\CanteenAPI /Y
           xcopy web.config C:\inetpub\wwwroot\CanteenAPI /Y
 
+      - name: Install Production Dependencies
+        working-directory: C:\inetpub\wwwroot\CanteenAPI
+        run: npm install --omit=dev
+
       - name: Start IIS
         run: iisreset /start
