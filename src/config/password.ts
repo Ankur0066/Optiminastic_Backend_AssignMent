@@ -13,3 +13,9 @@ export const verifyPassword = async (
 ): Promise<boolean> => {
   return await bcrypt.compare(plainPassword, hashedPassword);
 };
+
+export const generate4DigitCode = (): number => {
+  return Math.floor(1000 + Math.random() * 9000);
+};
+
+

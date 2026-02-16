@@ -4,4 +4,7 @@ const express_1 = require("express");
 const auth_controller_1 = require("../controllers/auth.controller");
 const router = (0, express_1.Router)();
 router.post("/login", auth_controller_1.loginUser);
+router.post("/forgetPass", auth_controller_1.forgetPass);
+router.post("/OTPVerify", auth_controller_1.OTPVerify);
+router.post("/updatePassword", auth_controller_1.updatePasswordData);
 exports.default = router;

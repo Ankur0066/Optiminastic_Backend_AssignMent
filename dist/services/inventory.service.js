@@ -31,13 +31,14 @@ const getInventory = async () => {
 exports.getInventory = getInventory;
 const addInventory = async (inventoryData) => {
     try {
-        const { itemId, unitId, reorderLvl, amount, vendorId } = inventoryData;
+        const { itemId, unitId, reorderLvl, amount, vendorId, price } = inventoryData;
         const result = await (0, dbconfig_1.executeStoredProcedure)("Stp_InventoryMaster", [
             { name: "itemId", value: itemId },
             { name: "unitId", value: unitId },
             { name: "reorderLvl", value: reorderLvl },
             { name: "amount", value: amount },
             { name: "vendorId", value: vendorId },
+            { name: "price", value: price },
             { name: "flag", value: "CreateInventory" }
         ]);
         return result;

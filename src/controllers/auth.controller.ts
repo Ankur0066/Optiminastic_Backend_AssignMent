@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { adminLogin, GetUserDetailsByUserName, } from "../services/user.service";
+import { adminLogin, ForgetPassword, GetUserDetailsByUserName, updatePassword, verifyOTp, } from "../services/user.service";
 import { verifyPassword } from "../config/password";
 
 
@@ -60,5 +60,74 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
   } catch (error) {
     console.error("Error logging in user:", error);
     res.status(500).json({ message: "Failed to login user" });
+  }
+}
+
+export async function forgetPass(
+  req: Request,
+  res: Response
+): Promise<Response> {
+  try {
+    const { userName } = req.body;
+
+    const passRes = await ForgetPassword(userName);
+
+    if (passRes.success) {
+      return res.status(200).json(passRes);
+    }
+
+    return res.status(400).json(passRes); // use 400 instead of 500 for logical failure
+
+  } catch (error) {
+    console.error("Error in forgetPass:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+}
+
+export async function OTPVerify(
+  req: Request,
+  res: Response
+): Promise<Response> {
+  try {
+    const { userName, code } = req.body;
+
+    const verify = await verifyOTp(userName, code);
+
+    if (!verify.success) {
+      return res.status(400).json(verify);
+    }
+
+    return res.status(200).json(verify);
+
+  } catch (error) {
+    console.error("Error in OTPVerify:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+}
+export async function updatePasswordData(
+  req: Request,
+  res: Response
+): Promise<void> {
+  try {
+    const { newPassword, empId } = req.body;
+
+    const verify = await updatePassword(newPassword, empId);
+
+     res.status(200).json({message : "Password Updated",verify});
+
+  } catch (error) {
+    console.error("Error in OTPVerify:", error);
+
+     res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
   }
 }
