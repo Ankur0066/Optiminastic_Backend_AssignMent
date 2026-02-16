@@ -31,6 +31,7 @@ jobs:
         run: Remove-Item -Recurse -Force C:\inetpub\wwwroot\CanteenAPI\*
 
       - name: Copy New Build
+        run: |
           xcopy dist C:\inetpub\wwwroot\CanteenAPI\dist /E /I /Y
           xcopy package.json C:\inetpub\wwwroot\CanteenAPI /Y
           xcopy web.config C:\inetpub\wwwroot\CanteenAPI /Y
