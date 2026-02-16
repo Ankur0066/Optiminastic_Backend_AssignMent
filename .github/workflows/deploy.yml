@@ -24,8 +24,8 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      - name: Stop IIS
-        run: iisreset /stop
+      # - name: Stop IIS
+      #   run: iisreset /stop
 
       - name: Clear Old Files
         run: Remove-Item -Recurse -Force C:\inetpub\wwwroot\CanteenAPI\*
@@ -40,5 +40,5 @@ jobs:
         working-directory: C:\inetpub\wwwroot\Canteen\CanteenAPI
         run: npm install --omit=dev
 
-      - name: Start IIS
-        run: iisreset /start
+      # - name: Start IIS
+      #   run: iisreset /start
