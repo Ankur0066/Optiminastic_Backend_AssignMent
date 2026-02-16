@@ -32,7 +32,7 @@ app.use((req, _res, next) => {
 // health check
 app.get("/health", (_req: Request, res: Response) => {
   console.log("hey")
-  res.send("Server is running andd depoyed via github 🚀");
+  res.send("Server is running ");
 });
 
 //  routes
