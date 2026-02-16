@@ -23,7 +23,7 @@ app.use(cors());
 
 /* -------------------- DEBUG LOGGER (TEMPORARY) -------------------- */
 app.use((req, _res, next) => {
- // console.log("📦 Body:", req.body);
+  console.log("📦 Body:", req.body);
   next();
 });
 
@@ -31,6 +31,7 @@ app.use((req, _res, next) => {
 
 // health check
 app.get("/health", (_req: Request, res: Response) => {
+  console.log("hey")
   res.send("Server is running 🚀");
 });
 

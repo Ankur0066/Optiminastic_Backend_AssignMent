@@ -1,4 +1,5 @@
 import { executeStoredProcedure } from "../config/dbconfig";
+import { hashPassword } from "../config/password";
 
 interface employeDetails {
     EmployeeCode: string;
@@ -8,6 +9,7 @@ interface employeDetails {
     mobile : number;
     userName : string;
     empId : number;
+    password: string
 }
 interface vendorDetails {
     VendorCode: string;
@@ -31,7 +33,10 @@ interface priceDetails {
 //employeeMaseter
 export const createEmployeeMaster = async (employeDetails : employeDetails) => {
     try {
-        const {EmployeeCode, EmployeeName, Email, CapAmount, mobile, userName} = employeDetails;
+        const {EmployeeCode, EmployeeName, Email, CapAmount, mobile, userName, password} = employeDetails;
+
+        const hashedPass = await hashPassword(password)
+       
         const result = await executeStoredProcedure("Stp_Employee", [
             {name : "flag", value : "createEmployee"},
             { name: "employee_code", value: EmployeeCode },
@@ -40,6 +45,7 @@ export const createEmployeeMaster = async (employeDetails : employeDetails) => {
             { name: "mobile", value: mobile },
             { name: "userName", value: userName },
             { name: "cap_amount", value: CapAmount },
+            { name: "password", value: hashedPass },
         ]);
         return result;
         

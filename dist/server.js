@@ -22,12 +22,13 @@ app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cors_1.default)());
 /* -------------------- DEBUG LOGGER (TEMPORARY) -------------------- */
 app.use((req, _res, next) => {
-    // console.log("📦 Body:", req.body);
+    console.log("📦 Body:", req.body);
     next();
 });
 /* -------------------- ROUTES -------------------- */
 // health check
 app.get("/health", (_req, res) => {
+    console.log("hey");
     res.send("Server is running 🚀");
 });
 //  routes
