@@ -14,10 +14,10 @@ dotenv.config();
 ===================================================== */
 
 const sqlConfig: SqlConfig = {
-     user: "sa",
-  password: "Cimt@123",
+     user: "cimtappuser1",
+  password: "C!mt@pp25",
  database: "CanteenModule",
-   server: "172.16.90.30"   as string,
+   server: "172.16.90.26"   as string,
   pool: {
     max: 10,
     min: 0,
