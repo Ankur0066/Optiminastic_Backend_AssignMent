@@ -32,12 +32,12 @@ jobs:
 
       - name: Copy New Build
         run: |
-          xcopy dist C:\inetpub\wwwroot\CanteenAPI\dist /E /I /Y
-          xcopy package.json C:\inetpub\wwwroot\CanteenAPI /Y
-          xcopy web.config C:\inetpub\wwwroot\CanteenAPI /Y
+          xcopy dist C:\inetpub\wwwroot\Canteen\CanteenAPI\dist /E /I /Y
+          xcopy package.json C:\inetpub\wwwroot\Canteen\CanteenAPI /Y
+          xcopy web.config C:\inetpub\wwwroot\Canteen\CanteenAPI /Y
 
       - name: Install Production Dependencies
-        working-directory: C:\inetpub\wwwroot\CanteenAPI
+        working-directory: C:\inetpub\wwwroot\Canteen\CanteenAPI
         run: npm install --omit=dev
 
       - name: Start IIS
