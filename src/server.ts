@@ -32,7 +32,7 @@ app.use((req, _res, next) => {
 // health check
 app.get("/health", (_req: Request, res: Response) => {
   console.log("hey")
-  res.send("Server is running 🚀");
+  res.send("Server is running after changes 🚀");
 });
 
 //  routes
@@ -48,7 +48,7 @@ async function startServer() {
     await getDbPool();
 
     app.listen(PORT, () => {
-      console.log(`Database and sever running deploy!! again🚀`);
+      console.log(`Database and sever running deploy!! again🚀 after changes`);
     });
   } catch (error) {
     console.error("❌ Failed to connect to database ", error);
