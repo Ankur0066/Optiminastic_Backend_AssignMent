@@ -24,21 +24,23 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      # - name: Stop IIS
-      #   run: iisreset /stop
-
-      - name: Clear Old Files
-        run: Remove-Item -Recurse -Force C:\inetpub\wwwroot\Canteen\CanteenAPI\*
-
-      - name: Copy New Build
+      # 🔹 Recycle ONLY your App Pool (SAFE)
+      - name: Recycle IIS App Pool
+        shell: powershell
         run: |
-          xcopy dist C:\inetpub\wwwroot\Canteen\CanteenAPI\dist /E /I /Y
-          xcopy package.json C:\inetpub\wwwroot\Canteen\CanteenAPI /Y
-          xcopy web.config C:\inetpub\wwwroot\Canteen\CanteenAPI /Y
+          Import-Module WebAdministration
+          Restart-WebAppPool "CanteenAPI"
+          Start-Sleep -Seconds 3
+
+      # 🔹 Deploy files safely (NO Remove-Item)
+      - name: Deploy Build to IIS
+        shell: powershell
+        run: |
+          robocopy dist C:\inetpub\wwwroot\Canteen\CanteenAPI\dist /MIR
+          robocopy . C:\inetpub\wwwroot\Canteen\CanteenAPI package.json web.config
+
+          if ($LASTEXITCODE -lt 8) { exit 0 } else { exit 1 }
 
       - name: Install Production Dependencies
         working-directory: C:\inetpub\wwwroot\Canteen\CanteenAPI
         run: npm install --omit=dev
-
-      # - name: Start IIS
-      #   run: iisreset /start
