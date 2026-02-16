@@ -48,7 +48,7 @@ async function startServer() {
     await getDbPool();
 
     app.listen(PORT, () => {
-      console.log(`Database and sever running 🚀`);
+      console.log(`Database and sever running deploy🚀`);
     });
   } catch (error) {
     console.error("❌ Failed to connect to database ", error);
