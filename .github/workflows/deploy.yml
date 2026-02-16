@@ -28,7 +28,7 @@ jobs:
       #   run: iisreset /stop
 
       - name: Clear Old Files
-        run: Remove-Item -Recurse -Force C:\inetpub\wwwroot\CanteenAPI\*
+        run: Remove-Item -Recurse -Force C:\inetpub\wwwroot\Canteen\CanteenAPI\*
 
       - name: Copy New Build
         run: |
