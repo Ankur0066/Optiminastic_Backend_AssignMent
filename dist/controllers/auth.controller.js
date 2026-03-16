@@ -8,7 +8,7 @@ const user_service_1 = require("../services/user.service");
 const password_1 = require("../config/password");
 async function loginUser(req, res) {
     try {
-        const { userName, password, loginType } = req.body;
+        const { userName, password, } = req.body;
         if (!userName || !password) {
             res.status(400).json({ message: "Username and password are required" });
             return;
